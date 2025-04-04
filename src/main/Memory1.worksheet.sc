@@ -1,31 +1,33 @@
 
-case class Karte(Symbol: String, isFaceUp: Boolean = false)
+
+case class Card(Symbol: String, isFaceUp: Boolean = false)
 
 
-case class Feld(Karte: Seq[Karte]) {
-  def karteUmdrehen(index: Int): Feld = {
-    val updatedCards = Karte.updated(index, Karte(index).copy(isFaceUp = !Karte(index).isFaceUp))
-    Feld(updatedCards)
+case class Field(Card: Seq[Card]) {
+  def turnCard(index: Int): Field = {
+    val updatedCards = Card.updated(index, Card(index).copy(isFaceUp = !Card(index).isFaceUp))
+    Field(updatedCards)
   }
 }
 
-case class Spieler(id: Int, Stapel: Int = 0, istAmZug: Boolean) {
-  def paarZufügen(): Spieler = copy(Stapel = Stapel + 1)
-  def nächsterZug(): Spieler = copy(istAmZug = !istAmZug)
+case class Player(id: Int, Stack: Int = 0, turn: Boolean) {
+  def addPair(): Player = copy(Stack = Stack + 1)
+  def nextTurn(): Player = copy(turn = !turn)
 }
 
 
-val player1 = Spieler(1, istAmZug = true)
-val player2 = Spieler(2, istAmZug = false)
+val player1 = Player(1, Turn = true)
+val player2 = Player(2, Turn = false)
 
-val initialBoard = Feld(Seq(
-  Karte("A"), Karte("A"),
-  Karte("B"), Karte("B"),
-  Karte("C"), Karte("C")
+val initialBoard = Field(Seq(
+  Card("A"), Card("A"),
+  Card("B"), Card("B"),
+  Card("C"), Card("C")
 ))
 
-player1.nächsterZug()
-player1.paarZufügen()
+player1.nextTurn()
+player1.addPair()
 
-initialBoard.karteUmdrehen(2)
+initialBoard.turnCard(2)
+
 println(initialBoard)
