@@ -1,4 +1,5 @@
 
+
 case class Card(Symbol: String, isFaceUp: Boolean = false)
 
 
@@ -28,4 +29,5 @@ player1.nextTurn()
 player1.addPair()
 
 initialBoard.turnCard(2)
+
 println(initialBoard)
